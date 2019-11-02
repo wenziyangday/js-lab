@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport"
+	      content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"/>
+	<title></title>
+	<link rel="stylesheet" href="">
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+		}
+
+		a {
+			width: 100%;
+			height: 150px;
+			background-color: red;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			color: #ffffff;
+		}
+	</style>
+	<script>
+		window.onload = function () {
+			let browserInfo = {
+				isAndroid: Boolean(navigator.userAgent.match(/android/ig)), // 是否是Android浏览器
+				isIphone: Boolean(navigator.userAgent.match(/iphone|ipod|iOS/ig)), // 是否是苹果浏览器
+				isIpad: Boolean(navigator.userAgent.match(/ipad/ig)), // 是否是 IPad 浏览器
+				isLinux: Boolean(navigator.userAgent.match(/Linux/ig)), // 是否是Linux平台浏览器
+				isWeixin: Boolean(navigator.userAgent.match(/MicroMessenger/ig)), // 是否是微信平台浏览器
+				isAli: Boolean(navigator.userAgent.match(/AlipayClient/ig)), // 是否是支付宝平台浏览器
+				isPhone: Boolean(/(iPhone|iPad|iPod|iOS|Android)/i.test(navigator.userAgent)) // 是否是手机端
+			};
+			if (browserInfo.isAndroid) {
+				document.getElementById('inner').innerHTML = `
+				<a href="app-release.apk">下载</a>
+			`
+			} else {
+				document.getElementById('inner').innerHTML = `
+				<a href="itms-services://?action=download-manifest&url=https://down.orderhandler.com/manifest.plist">下载ios</a>
+			`
+			}
+		}
+
+	</script>
+</head>
+<body>
+<div id="inner"></div>
+</body>
+</html>

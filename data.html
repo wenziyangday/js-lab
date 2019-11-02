@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Title</title>
+</head>
+<style>
+	* {
+		margin: 0;
+		padding: 0;
+	}
+	#html {
+		width: 1200px;
+		margin: 0 auto;
+	}
+	.province {
+		/*display: none;*/
+		position: absolute;
+		width: 100%;
+		padding: 10px 0;
+		height: 20px;
+		border-bottom: 1px solid #f0f0f0;
+		top: 0;
+		font-size: 16px;
+		color: #000000;
+	}
+
+	.city {
+		margin: 0 0 10px;
+		font-size: 14px;
+		color: #666666;
+	}
+
+	.district {
+		margin-bottom: 5px;
+		font-size: 12px;
+		color: #cccccc;
+	}
+
+	.p-item {
+		display: flex;
+		position: relative;
+		align-items: stretch;
+		flex-wrap: wrap;
+		padding-top: 50px;
+
+	}
+	.c-item {
+		box-sizing: border-box;
+		flex: 0 0 133px;
+	}
+
+	.d-item {
+		/*display: none;*/
+	}
+
+</style>
+<body>
+<div id="html"></div>
+<script src="data.js"></script>
+<script>
+	//  省
+	let province = ChineseDistricts[86];
+
+	//  省的ids
+	let pIds = Object.keys(province);
+
+	let htmlPStr = '';
+
+	pIds.forEach(pId => {
+		let pStr = '';
+		let wrapPStr = '';
+		//  省的name
+		let pName = province[pId];
+		//  城市
+		let cities = ChineseDistricts[pId] || {};
+		//  城市ids
+		let cIds = Object.keys(cities);
+
+		//  省字符串
+		pStr += '<div class="province" data-id="' + pId + '">' + pName + '</div>';
+
+		let htmlCStr = '';
+		cIds.forEach(cId => {
+			//  城市字符串
+			let cStr = '';
+			//  城市name
+			let cName = cities[cId] || '';
+			//  城市的辖区
+			let districts = ChineseDistricts[cId] || {};
+			//  城市的辖区的ids
+			let dIds = Object.keys(districts);
+
+			cStr += '<div class="city" data-id="' + cId + '">' + cName + '</div>';
+			//  区域字符串
+			let dStr = '';
+			// dIds.forEach(dId => {
+			// 	// 城市的辖区的名称
+			// 	let dName = districts[dId] || '';
+			// 	dStr += '<div class="district" data-id="' + cId + '">' + dName + '</div>';
+			// });
+			cStr += '<div class="d-item">' + dStr + '</div>';
+			htmlCStr += '<div class="c-item">' + cStr + '</div>';
+		});
+		pStr += htmlCStr;
+		wrapPStr += '<div class="p-item">' + pStr + '</div>';
+		htmlPStr += wrapPStr;
+	});
+	document.getElementById('html').innerHTML = htmlPStr;
+</script>
+
+
+</body>
+</html>
